@@ -76,7 +76,7 @@ elUserWrapper.addEventListener("click", (evt) => {
     let userTemplateId = evt.target.dataset.UserId
     fetch(`https://jsonplaceholder.typicode.com/user/${userTemplateId}/posts`)
     .then((response) => response.json())
-    .then((json) => console.log(renderUserPost(json, elPostWrapper)));
+    .then((json) => renderUserPost(json, elPostWrapper));
     elCommentWrapper.innerHTML = null
     elSearchCommit.textContent = null
 })
