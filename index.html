@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <title>Example</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="h1 text-center text-danger mb-5">Users Api</h1>
+
+            <hr>
+
+            <div class="row">
+                <div class="col">
+                    <h2 class="text-warning fst-italic">Users</h2>
+                    <p class="text-danger" id="search-user"></p>
+                    <ul id="user-wrapper" class="user__wrapper list-unstyled col">
+                    </ul>
+                </div>
+                
+                <div class="col">
+                    <h2 class="text-warning fst-italic">Posts</h2>
+                    <p class="text-danger ms-2" id="search-post"></p>
+                    <ul id="post-wrapper" class="list-unstyled">
+                    </ul>
+                </div>
+
+                <div class="col">
+                    <h2 class="text-warning fst-italic">Comments</h2>
+                    <p class="text-danger" id="search-commit"></p>
+                    <ul id="comment-wrapper" class="list-unstyled">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <template id="user-template">
+        <li id="user-item" class="user__item border rounded pt-2 pb-2 ps-2 border-info mb-2">
+            <p id="user-name" class="user__name text-secondary fw-bold mb-2 text-decoration-underline"></p>
+            <p id="user-username" class="user__username mb-1 text-primary"></p>
+            <a href="#" id="user-email" class="user__email mb-1 text-warning"></a>
+            <p id="user-city" class="user__city mb-1 text-success"></p>
+        </li>
+    </template>
+
+    <template id="user-post-template">
+        <li id="user-item" class="user__item border rounded pt-2 pb-2 ps-2 border-info mb-2">
+            <p id="user-title" class="user__name text-primary mb-2 text-decoration-underline"></p>
+            <p id="user-body" class="user__username mb-1 text-success"></p>
+        </li>
+    </template>
+
+    <template id="user-client-comment-template">
+        <li id="user-item" class="user__item border rounded pt-2 pb-2 ps-2 border-info mb-2">
+            <p id="user-client-name" class="user__name text-primary mb-2 text-decoration-underline"></p>
+            <a href="#" id="user-client-email" class="user__email mb-1 text-warning"></a>
+            <p id="user-client-body" class="user__username mb-1 text-success"></p>
+        </li>
+    </template>
+    <script src="./js/bootstrap.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>
