@@ -1,14 +1,17 @@
+// DOM ELEMENT
 let elUserWrapper = document.querySelector("#user-wrapper");
 let elPostWrapper = document.querySelector("#post-wrapper");
 let elCommentWrapper = document.querySelector("#comment-wrapper");
 let elSearchUser = document.querySelector("#search-user");
 let elSearchPost = document.querySelector("#search-post");
-let elSearchCommit = document.querySelector("#search-commit");
+let elSearchComment = document.querySelector("#search-commit");
 
 let elUserTemplate = document.querySelector("#user-template").content
 let elPostTemplate = document.querySelector("#user-post-template").content
 let elCommentTemplate = document.querySelector("#user-client-comment-template").content
 
+
+// user render
 function renderUser(array, wrapper) {
     let newItem = document.createDocumentFragment();
     if (array) {
@@ -29,18 +32,21 @@ function renderUser(array, wrapper) {
     }
     elSearchUser.textContent = `Count of users: ${array.length}`
 }
+
 fetch('https://jsonplaceholder.typicode.com/users')
   .then((response) => response.json())
   .then((json) => renderUser(json, elUserWrapper));
 
+ 
+// posts render
 function renderUserPost(postArray, wrapper) {
     let newPostItem = document.createDocumentFragment();
     if (postArray) {
         postArray.forEach(item => {
             let postWrapper = elPostTemplate.cloneNode(true);
-            postWrapper.querySelector("#user-title").textContent = item.title
-            postWrapper.querySelector("#user-body").textContent = `Post: ${item.body}`
-            postWrapper.querySelector("#user-title").dataset.userIdBek = item.userId
+            postWrapper.querySelector("#user-post-title").textContent = item.title
+            postWrapper.querySelector("#user-post-body").textContent = `Post: ${item.body}`
+            postWrapper.querySelector("#user-post-title").dataset.userIdBek = item.userId
             newPostItem.appendChild(postWrapper);
         })
     wrapper.innerHTML = null;
@@ -53,15 +59,16 @@ function renderUserPost(postArray, wrapper) {
 }
 
 
-function renderClientComment(commentArray, commentWrapper) {
+// comment render
+function renderUserClientComment(commentArray, commentWrapper) {
     let newPostItem = document.createDocumentFragment();
     if (commentArray) {
         commentArray.forEach(item => {
-            let postWrapper = elCommentTemplate.cloneNode(true);
-            postWrapper.querySelector("#user-client-name").textContent = `Title: ${item.name}`
-            postWrapper.querySelector("#user-client-email").textContent = `Email: ${item.email}`
-            postWrapper.querySelector("#user-client-body").textContent = `Post: ${item.body}`
-            newPostItem.appendChild(postWrapper);
+            let clientCommentWrapper = elCommentTemplate.cloneNode(true);
+            clientCommentWrapper.querySelector("#user-client-name").textContent = `Title: ${item.name}`
+            clientCommentWrapper.querySelector("#user-client-email").textContent = `Email: ${item.email}`
+            clientCommentWrapper.querySelector("#user-client-body").textContent = `Post: ${item.body}`
+            newPostItem.appendChild(clientCommentWrapper);
         })
     commentWrapper.innerHTML = null;
     commentWrapper.appendChild(newPostItem);
@@ -69,8 +76,9 @@ function renderClientComment(commentArray, commentWrapper) {
         commentWrapper.innerHTML = null
         alert("Ma'lumot kelmadi, biroz kuting kep qolar");
     }
-    elSearchCommit.textContent = `Count of comments: ${commentArray.length}`
+    elSearchComment.textContent = `Count of comments: ${commentArray.length}`
 }
+
 
 elUserWrapper.addEventListener("click", (evt) => {
     let userTemplateId = evt.target.dataset.UserId
@@ -78,12 +86,12 @@ elUserWrapper.addEventListener("click", (evt) => {
     .then((response) => response.json())
     .then((json) => renderUserPost(json, elPostWrapper));
     elCommentWrapper.innerHTML = null
-    elSearchCommit.textContent = null
+    elSearchComment.textContent = null
 })
 
 elPostWrapper.addEventListener("click", (evt) => {
     let userClientCommitId = evt.target.dataset.userIdBek
     fetch(`https://jsonplaceholder.typicode.com/posts/${userClientCommitId}/comments`)
     .then((response) => response.json())
-    .then((json) => renderClientComment(json, elCommentWrapper));
+    .then((json) => renderUserClientComment(json, elCommentWrapper));
 })
